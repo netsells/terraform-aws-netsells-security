@@ -8,13 +8,15 @@ module "netsells_security" {
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
 
 ## Modules
 
@@ -50,6 +52,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `"eu-west-2"` | no |
+| <a name="input_role_engineer_edit_ecs_env"></a> [role\_engineer\_edit\_ecs\_env](#input\_role\_engineer\_edit\_ecs\_env) | n/a | `bool` | `false` | no |
+| <a name="input_role_engineer_ssm_ec2"></a> [role\_engineer\_ssm\_ec2](#input\_role\_engineer\_ssm\_ec2) | n/a | `bool` | `false` | no |
+| <a name="input_role_engineer_ssm_ecs"></a> [role\_engineer\_ssm\_ecs](#input\_role\_engineer\_ssm\_ecs) | n/a | `bool` | `false` | no |
 
 ## Outputs
 

@@ -9,30 +9,19 @@ resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
+################################################################
+# Allow engineers to connect directly to an EC2 instance via SSM
+################################################################
 resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-SSMConnect" {
   role       = aws_iam_role.NetsellsSecurityEngineer.name
-  policy_arn = aws_iam_policy.ssm_connect.arn
+  policy_arn = aws_iam_policy.ssm_connect[0].arn
+  count      = var.role_engineer_ssm_ec2 ? 1 : 0
 }
 
-resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ECSConnect" {
-  role       = aws_iam_role.NetsellsSecurityEngineer.name
-  policy_arn = aws_iam_policy.ecs_connect.arn
-}
-
-resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ManageEnv" {
-  role       = aws_iam_role.NetsellsSecurityEngineer.name
-  policy_arn = aws_iam_policy.manage_env.arn
-}
-
-resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ManageHosting" {
-  role       = aws_iam_role.NetsellsSecurityEngineer.name
-  policy_arn = aws_iam_policy.manage_hosting.arn
-}
-
-# Allows netsells aws:ssm:connect to function
 resource "aws_iam_policy" "ssm_connect" {
   name_prefix = "ssm_connect-"
   policy      = data.aws_iam_policy_document.ssm_connect.json
+  count       = var.role_engineer_ssm_ec2 ? 1 : 0
 }
 
 data "aws_iam_policy_document" "ssm_connect" {
@@ -66,10 +55,19 @@ data "aws_iam_policy_document" "ssm_connect" {
   }
 }
 
-# Allows netsells aws:ecs:connect to function
+################################################################
+# Allow engineers to connect directly to an ECS task via SSM
+################################################################
+resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ECSConnect" {
+  role       = aws_iam_role.NetsellsSecurityEngineer.name
+  policy_arn = aws_iam_policy.ecs_connect[0].arn
+  count      = var.role_engineer_ssm_ecs ? 1 : 0
+}
+
 resource "aws_iam_policy" "ecs_connect" {
   name_prefix = "ecs_connect-"
   policy      = data.aws_iam_policy_document.ecs_connect.json
+  count       = var.role_engineer_ssm_ecs ? 1 : 0
 }
 
 data "aws_iam_policy_document" "ecs_connect" {
@@ -84,10 +82,19 @@ data "aws_iam_policy_document" "ecs_connect" {
   }
 }
 
-# Allows netsells aws:ecs:manage-env to function
+################################################################
+# Allow engineers to manage ECS env files in S3
+################################################################
+
+resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ManageEnv" {
+  role       = aws_iam_role.NetsellsSecurityEngineer.name
+  policy_arn = aws_iam_policy.manage_env[0].arn
+  count      = var.role_engineer_edit_ecs_env ? 1 : 0
+}
 resource "aws_iam_policy" "manage_env" {
   name_prefix = "manage_env-"
   policy      = data.aws_iam_policy_document.manage_env.json
+  count       = var.role_engineer_edit_ecs_env ? 1 : 0
 }
 
 data "aws_iam_policy_document" "manage_env" {
@@ -99,10 +106,20 @@ data "aws_iam_policy_document" "manage_env" {
   }
 }
 
-# Allow engineers to interact via the UI
+################################################################
+# Allow engineers to kill ECS tasks
+################################################################
+
+resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ManageHosting" {
+  role       = aws_iam_role.NetsellsSecurityEngineer.name
+  policy_arn = aws_iam_policy.manage_hosting[0].arn
+  count      = var.role_engineer_manage_hosting ? 1 : 0
+}
+
 resource "aws_iam_policy" "manage_hosting" {
   name_prefix = "manage_hosting-"
   policy      = data.aws_iam_policy_document.manage_hosting.json
+  count       = var.role_engineer_manage_hosting ? 1 : 0
 }
 
 data "aws_iam_policy_document" "manage_hosting" {
