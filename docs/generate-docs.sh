@@ -2,4 +2,4 @@
 
 # Run this from the project root
 
-terraform-docs markdown table --header-from ./docs/readme-header.md . > README.md
+terraform-docs markdown table --lockfile=false --header-from ./docs/readme-header.md . > README.md

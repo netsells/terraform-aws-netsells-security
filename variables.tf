@@ -17,3 +17,9 @@ variable "role_engineer_ssm_ec2" {
   default = false
   type    = bool
 }
+
+variable "role_engineer_manage_hosting" {
+  default     = true
+  type        = bool
+  description = "Allows engineers to kill ECS tasks"
+}

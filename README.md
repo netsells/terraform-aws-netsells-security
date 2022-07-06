@@ -53,6 +53,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `"eu-west-2"` | no |
 | <a name="input_role_engineer_edit_ecs_env"></a> [role\_engineer\_edit\_ecs\_env](#input\_role\_engineer\_edit\_ecs\_env) | n/a | `bool` | `false` | no |
+| <a name="input_role_engineer_manage_hosting"></a> [role\_engineer\_manage\_hosting](#input\_role\_engineer\_manage\_hosting) | Allows engineers to kill ECS tasks | `bool` | `true` | no |
 | <a name="input_role_engineer_ssm_ec2"></a> [role\_engineer\_ssm\_ec2](#input\_role\_engineer\_ssm\_ec2) | n/a | `bool` | `false` | no |
 | <a name="input_role_engineer_ssm_ecs"></a> [role\_engineer\_ssm\_ecs](#input\_role\_engineer\_ssm\_ecs) | n/a | `bool` | `false` | no |
 
