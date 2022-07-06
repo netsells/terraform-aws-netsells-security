@@ -24,17 +24,10 @@ resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ManageEnv" {
   policy_arn = aws_iam_policy.manage_env.arn
 }
 
-resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-DevelopmentS3Rw" {
-  role       = aws_iam_role.NetsellsSecurityEngineer.name
-  policy_arn = aws_iam_policy.engineer_s3_rw.arn
-}
-
 resource "aws_iam_role_policy_attachment" "NetsellsSecurityEngineer-ManageHosting" {
   role       = aws_iam_role.NetsellsSecurityEngineer.name
   policy_arn = aws_iam_policy.manage_hosting.arn
 }
-
-
 
 # Allows netsells aws:ssm:connect to function
 resource "aws_iam_policy" "ssm_connect" {
@@ -119,32 +112,6 @@ data "aws_iam_policy_document" "manage_hosting" {
     ]
     resources = [
       "arn:aws:ecs:*:*:task/*/*"
-    ]
-  }
-}
-
-###
-# S3 Permissions for Engineer
-###
-
-resource "aws_iam_policy" "engineer_s3_rw" {
-  name_prefix = "engineer_s3_rw-"
-  policy      = data.aws_iam_policy_document.engineer_s3_rw.json
-}
-
-data "aws_iam_policy_document" "engineer_s3_rw" {
-  statement {
-    actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:GetObject",
-      "s3:ListBucket",
-      "s3:DeleteObject",
-      "s3:ListObjects"
-    ]
-    resources = [
-      "arn:aws:s3:::*-ecs-env",
-      "arn:aws:s3:::*-ecs-env/*"
     ]
   }
 }
