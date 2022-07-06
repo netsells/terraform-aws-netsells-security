@@ -62,5 +62,8 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_role_engineer_arn"></a> [role\_engineer\_arn](#output\_role\_engineer\_arn) | n/a |
+| <a name="output_role_engineer_name"></a> [role\_engineer\_name](#output\_role\_engineer\_name) | n/a |
 | <a name="output_role_ops_arn"></a> [role\_ops\_arn](#output\_role\_ops\_arn) | n/a |
+| <a name="output_role_ops_name"></a> [role\_ops\_name](#output\_role\_ops\_name) | n/a |
 | <a name="output_role_readonly_arn"></a> [role\_readonly\_arn](#output\_role\_readonly\_arn) | n/a |
+| <a name="output_role_readonly_name"></a> [role\_readonly\_name](#output\_role\_readonly\_name) | n/a |
