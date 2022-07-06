@@ -85,7 +85,7 @@ data "aws_iam_policy_document" "ecs_connect" {
       "ecs:ExecuteCommand",
     ]
     resources = [
-      module.ecs.cluster_id,
+      "arn:aws:ecs:*:*:cluster/",
       "arn:aws:ecs:*:*:task/*/*"
     ]
   }
